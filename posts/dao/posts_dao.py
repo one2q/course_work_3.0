@@ -1,4 +1,5 @@
 import json
+from json import JSONDecodeError
 
 
 class PostsDao:
@@ -12,9 +13,14 @@ class PostsDao:
 
 	def load_data(self) -> list:
 		""" Загружает данные из файла и возвращает список"""
-		with open(self.path, 'r', encoding="utf-8") as file:
-			data = json.load(file)
-			return data
+		try:
+			with open(self.path, 'r', encoding="utf-8") as file:
+				data = json.load(file)
+				return data
+		except FileNotFoundError:
+			print("Файл не найден")
+		except JSONDecodeError:
+			print("Файл не удается преобразовать")
 
 	def load_all(self):
 		""" Возвращает список всех постов"""
@@ -38,7 +44,7 @@ class PostsDao:
 				return i
 		return None
 
-	def search_for_posts(self, query: str):
+	def search_for_posts(self, query: str) -> list:
 		""" Возвращает пост по ключевому слову в тексте поста"""
 		data = self.load_all()
 		result = []
@@ -46,8 +52,3 @@ class PostsDao:
 			if query.lower() in i["content"].lower():
 				result.append(i)
 		return result
-
-
-
-# po = PostsDao('posts.json')
-# print(po.get_post_by_username('leo'))
