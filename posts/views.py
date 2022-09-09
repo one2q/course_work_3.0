@@ -40,3 +40,10 @@ def search_posts():
 def get_post_by_username(username):
 	user_posts = posts_dao.get_post_by_username(username)
 	return render_template('user-feed.html', posts=user_posts)
+
+
+# Страница тэгов
+@posts_blueprint.get('/tag/<tagname>')
+def get_post_by_tag(tagname):
+	user_posts = posts_dao.search_for_posts(tagname)
+	return render_template('tag.html', posts=user_posts, tagname=tagname)
