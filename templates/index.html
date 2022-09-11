@@ -16,9 +16,9 @@
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#skyprogram"></use>
         </svg>
       </a>
-      <a href="/templates/bookmarks.html" class="header__bookmark-btn">
+      <a href="/bookmarks" class="header__bookmark-btn">
         <img src="../static/img/bookmark.png" alt="" class="header__bookmark-icon" width="28">
-        <span class="header__bookmark-counter">3</span>
+        <span class="header__bookmark-counter">{{ bookmarks_amount }}</span>
       </a>
     </div>
   </header>
@@ -41,7 +41,7 @@
             <span class="item__username">{{ post["poster_name"] }}</span>
           </a>
         </div>
-        <a href="/post{{ post["pk"] }}.html" class="item__post-link">
+        <a href="/post/{{ post["pk"] }}" class="item__post-link">
           <img src={{ post["pic"] }} alt="" width="348" class="item__post-img">
         </a>
         <p class="item__descr">{{ post['content']| safe |truncate(50) }}</p>
